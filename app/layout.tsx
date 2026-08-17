@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
   const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "localhost:3000";
   const protocol = requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
-  const imageUrl = `${protocol}://${host}/og.png`;
+  const imageUrl = `${protocol}://${host}/og-blue.png`;
   const title = "AI 产品经理作品集";
   const description = "聚焦用户洞察、数据决策与 AI 落地：智聘方舟、学喵打卡与一起攀。";
 
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title,
     description,
     icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
-    openGraph: { title, description, type: "website", images: [{ url: imageUrl, width: 1732, height: 909, alt: title }] },
+    openGraph: { title, description, type: "website", images: [{ url: imageUrl, width: 1536, height: 1024, alt: title }] },
     twitter: { card: "summary_large_image", title, description, images: [imageUrl] },
   };
 }

@@ -178,46 +178,93 @@ export default function Home() {
   return (
     <main>
       <nav className="nav">
-        <a className="brand" href="#top" aria-label="返回首页">{data.name}<span>·</span>AI PM</a>
-        <div className="navLinks"><a href="#work">作品</a><a href="#about">关于我</a>
-          <button className="edit" onClick={() => setEditorOpen(true)}>编辑作品集</button>
+        <a className="brand" href="#top" aria-label="返回首页"><i className="brandApple" />{data.name}<span>APPLE</span></a>
+        <div className="navLinks">
+          <a href="#top"><b>首页</b><small>home</small></a>
+          <a href="#about"><b>个人简介</b><small>biography</small></a>
+          <a href="#skills"><b>技能</b><small>skill</small></a>
+          <a href="#work"><b>作品集</b><small>portfolio</small></a>
+          <a href="#contact"><b>联系方式</b><small>information</small></a>
+          <button className="edit" onClick={() => setEditorOpen(true)}>编辑</button>
         </div>
       </nav>
 
       <section className="hero" id="top">
+        <div className="doodleLine lineOne" /><div className="doodleLine lineTwo" />
         <p className="eyebrow">{data.role} · 2026 PORTFOLIO</p>
-        <h1>把复杂问题，<br />变成<span>有用的 AI 产品</span>。</h1>
-        <div className="heroBottom"><p>{data.intro}</p><a className="roundLink" href="#work" aria-label="查看作品">↓</a></div>
+        <div className="welcome">WELC<span className="heroApple" />ME</div>
+        <div className="heroStage">
+          <div className="heroCopy"><p>在 AI 面前<br />人人都是产品创造者</p><small>In front of AI, everyone is a product creator</small></div>
+          <div className="speech">Hi! I&apos;m {data.name}<i /></div>
+          <div className="appleBuddy"><i className="leaf" /><i className="shine" /><span>AI</span><b>⌣</b></div>
+        </div>
+        <div className="heroBottom"><p>{data.intro}</p><a className="continue" href="#about">CONTINUE 〉</a></div>
+      </section>
+
+      <section className="about" id="about">
+        <div className="slideTitle"><b>个人简介</b><span>biography</span></div>
+        <div className="aboutGrid">
+          <div className="profileIllustration">
+            <div className="miniApple"><i /><span>AI</span></div>
+            <div className="profileBubble">Hi! I&apos;m {data.name}<small>{data.role}</small></div>
+          </div>
+          <div className="aboutCard">
+            <p className="eyebrow">ABOUT ME / 关于我</p>
+            <h2>不只提出想法，<br /><span>也把它做出来。</span></h2>
+            <p>{data.about}</p>
+            <div className="capabilities">{data.capabilities.map(item => <span key={item}>{item}</span>)}</div>
+          </div>
+        </div>
+        <a className="returnLink" href="#top">〈 return</a>
+      </section>
+
+      <section className="skills" id="skills">
+        <div className="skillsColumn">
+          <div className="slideTitle left"><b>专业技能</b><span>expertise</span></div>
+          <div className="skillBars">
+            {["产品设计", "AI 应用", "数据分析", "原型设计", "Coding"].map((skill, index) => <div className="skillRow" key={skill}>
+              <i>{["PM", "AI", "DA", "UX", "⌘"][index]}</i><b>{skill}</b><span>{Array.from({ length: 5 }).map((_, dot) => <em className={dot < 5 - (index % 2) ? "on" : ""} key={dot}>●</em>)}</span>
+            </div>)}
+          </div>
+        </div>
+        <div className="skillsColumn abilityColumn">
+          <div className="slideTitle left"><b>个人能力</b><span>ability</span></div>
+          <ul>{[...data.capabilities,"需求分析","信息可视化","跨团队协作"].map(item => <li key={item}><i />{item}</li>)}</ul>
+        </div>
+        <a className="returnLink" href="#top">〈 return</a>
       </section>
 
       <section className="work" id="work">
+        <div className="slideTitle"><b>作品集</b><span>portfolio</span></div>
         <div className="sectionHead"><p>SELECTED WORK / {String(data.projects.length).padStart(2, "0")}</p><p>PRODUCT THINKING × AI × CODING</p></div>
         <div className="projectList">
           {data.projects.map((project, index) => (
             <article className={`projectCard ${project.tone}`} key={project.id}>
-              <div className="projectCopy">
-                <div className="projectMeta"><span>{project.number}</span><span>{project.category}</span></div>
-                <div className="tags">{project.tags.map(tag => <span key={tag}>{tag}</span>)}</div>
-                <h2>{project.title}</h2><p className="lead">{project.summary}</p>
-                <ul>{project.highlights.map(item => <li key={item}>{item}</li>)}</ul>
-                <div className="outcome"><span>项目成果</span><b>{project.outcome}</b></div>
-              </div>
               <div className="visualPanel">
                 {index === 0 ? <MetricMockup /> : index === 1 ? <StudyMockup /> : <GameMockup />}
+              </div>
+              <div className="projectCopy">
+                <div className="projectMeta"><span>{project.number}</span><span>{project.category}</span></div>
+                <h2>{project.title}</h2><p className="lead">{project.summary}</p>
+                <div className="tags">{project.tags.map(tag => <span key={tag}>{tag}</span>)}</div>
+                <details><summary>查看项目亮点</summary><ul>{project.highlights.map(item => <li key={item}>{item}</li>)}</ul></details>
+                <div className="outcome"><span>项目成果</span><b>{project.outcome}</b></div>
               </div>
             </article>
           ))}
         </div>
+        <div className="carouselDots"><i /><i className="active" /><i /><i /></div>
+        <a className="returnLink" href="#top">〈 return</a>
       </section>
 
-      <section className="about" id="about">
-        <p className="eyebrow">ABOUT / 关于我</p>
-        <div className="aboutGrid"><h2>不只提出想法，<br /><span>也把它做出来。</span></h2>
-          <div><p>{data.about}</p><div className="capabilities">{data.capabilities.map(item => <span key={item}>{item}</span>)}</div></div>
+      <footer id="contact">
+        <div className="contactIntro"><p>Hi!<br />CALL ME</p><div className="contactApple"><i /><span>⌣</span></div></div>
+        <div className="contactPanels">
+          <div className="contactCard"><h2>联系我</h2><p>✉　{data.email}</p><p>⌂　期待 AI 产品经理相关机会</p></div>
+          <div className="messageCard"><h2>留言板</h2><textarea aria-label="留言内容" placeholder="Start Message……" /><a href={`mailto:${data.email}`}>发送到我的邮箱 〉</a></div>
         </div>
-      </section>
-
-      <footer><div><p>期待一起创造有用的产品。</p><a href={`mailto:${data.email}`}>{data.email}</a></div><span>© 2026 {data.name} · BUILT WITH CURIOSITY</span></footer>
+        <a className="returnLink" href="#top">〈 return</a><span className="copyright">© 2026 {data.name} · BUILT WITH CURIOSITY</span>
+      </footer>
 
       <button className="floatingEdit" onClick={() => setEditorOpen(true)} aria-label="打开内容编辑器">✎</button>
       <div className={editorOpen ? "editorOverlay open" : "editorOverlay"} onClick={() => setEditorOpen(false)} />
