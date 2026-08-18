@@ -43,11 +43,11 @@ type Portfolio = {
 
 const STORAGE_KEY = "ai-pm-portfolio-v2";
 
-const lifeMoments = [
-  { id: "climbing", label: "攀岩", en: "CLIMBING", src: "", featured: true },
-  { id: "skiing", label: "滑雪", en: "SKIING", src: "", featured: false },
-  { id: "skating", label: "滑冰", en: "SKATING", src: "", featured: false },
-  { id: "dance", label: "舞蹈", en: "DANCE", src: "", featured: false },
+const sportsMoments = [
+  { id: "climbing", label: "攀岩", en: "CLIMBING", src: "./sport-climbing.jpg", featured: true },
+  { id: "skiing", label: "滑雪", en: "SKIING", src: "./sport-skiing.jpg", featured: false },
+  { id: "surfing", label: "冲浪", en: "SURFING", src: "./sport-surfing.jpg", featured: false },
+  { id: "hiking", label: "徒步", en: "HIKING", src: "./sport-hiking.jpg", featured: false },
 ];
 
 const defaultData: Portfolio = {
@@ -279,21 +279,6 @@ export default function Home() {
         <a className="returnLink" href="#top">〈 return</a>
       </section>
 
-      <section className="life" id="life">
-        <div className="lifeHeading">
-          <div className="slideTitle left"><b>生活之外</b><span>life moments</span></div>
-          <p>在产品、数据与代码之外，保持向上、向前，也保持身体与世界的连接。</p>
-        </div>
-        <div className="lifeGrid">
-          {lifeMoments.map((moment, index) => <figure className={moment.featured ? "lifeCard featured" : "lifeCard"} key={moment.id}>
-            {moment.src ? <img src={moment.src} alt={`${moment.label}生活照`} /> : <div className="photoSlot"><span>PHOTO / 0{index + 1}</span><b>等待嵌入照片</b></div>}
-            <figcaption><b>{moment.label}</b><span>{moment.en}</span></figcaption>
-          </figure>)}
-        </div>
-        <div className="lifeApple" aria-hidden="true"><i /><span>GO!</span></div>
-        <a className="returnLink" href="#top">〈 return</a>
-      </section>
-
       <section className="skills" id="skills">
         <div className="skillsColumn">
           <div className="slideTitle left"><b>专业技能</b><span>expertise</span></div>
@@ -340,6 +325,21 @@ export default function Home() {
           ))}
         </div>
         <div className="carouselDots"><i /><i className="active" /><i /><i /></div>
+        <a className="returnLink" href="#top">〈 return</a>
+      </section>
+
+      <section className="life" id="life">
+        <div className="lifeHeading">
+          <div className="slideTitle left"><b>运动女孩</b><span>sporty girl</span></div>
+          <p>在产品、数据与代码之外，用攀登、速度、海浪与远方，保持向上生长的生命力。</p>
+        </div>
+        <div className="lifeGrid">
+          {sportsMoments.map(moment => <figure className={moment.featured ? "lifeCard featured" : "lifeCard"} key={moment.id}>
+            <img src={moment.src} alt={`${moment.label}运动照`} />
+            <figcaption><b>{moment.label}</b><span>{moment.en}</span></figcaption>
+          </figure>)}
+        </div>
+        <div className="lifeApple" aria-hidden="true"><i /><span>GO!</span></div>
         <a className="returnLink" href="#top">〈 return</a>
       </section>
 
