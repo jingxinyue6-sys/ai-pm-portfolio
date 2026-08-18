@@ -18,8 +18,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "localhost:3000";
   const protocol = requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
   const imageUrl = `${protocol}://${host}/og-blue.png`;
-  const title = "AI 产品经理作品集";
-  const description = "聚焦用户洞察、数据决策与 AI 落地：智聘方舟、学喵打卡与一起攀。";
+  const title = "景欣悦｜AI 产品经理作品集";
+  const description = "四川大学应用统计硕士，聚焦 AI Agent、RAG、数据决策与产品落地。";
 
   return {
     title,

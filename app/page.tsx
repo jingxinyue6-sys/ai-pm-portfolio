@@ -14,6 +14,21 @@ type Project = {
   tone: "lime" | "orange" | "cream";
 };
 
+type Education = {
+  school: string;
+  degree: string;
+  period: string;
+  detail: string;
+};
+
+type Experience = {
+  company: string;
+  role: string;
+  period: string;
+  summary: string;
+  metrics: string[];
+};
+
 type Portfolio = {
   name: string;
   role: string;
@@ -21,18 +36,41 @@ type Portfolio = {
   about: string;
   email: string;
   capabilities: string[];
+  education: Education[];
+  experiences: Experience[];
   projects: Project[];
 };
 
-const STORAGE_KEY = "ai-pm-portfolio-v1";
+const STORAGE_KEY = "ai-pm-portfolio-v2";
 
 const defaultData: Portfolio = {
-  name: "JXY",
+  name: "景欣悦",
   role: "AI 产品经理",
-  intro: "我关注真实用户、数据决策与 AI 落地。从问题洞察到产品上线，用产品思维连接需求、模型和体验。",
-  about: "我喜欢把模糊的问题拆成清晰的产品路径：先理解谁在为什么困扰，再判断 AI 能在哪个环节真正创造价值，最后用原型、数据和迭代把想法落到可用的产品里。",
-  email: "yourname@email.com",
-  capabilities: ["用户洞察", "AI 产品设计", "数据建模", "原型与 Coding"],
+  intro: "四川大学应用统计硕士在读，现于美团搜索产品部门从事 AI 产品工作。关注 Agent、RAG 与数据决策，擅长把模糊业务问题拆成可验证、可落地的产品方案。",
+  about: "我拥有应用统计与财务管理的复合背景，经历覆盖美团搜索 AI 产品、得物个卖中台与小米金融科技。从 0 到 1 搭建 AI 数字员工、Agent 评测体系与数据看板，也持续通过 Coding 把产品想法做成可体验的作品。",
+  email: "3256953428@qq.com",
+  capabilities: ["AI 产品设计", "Agent / Skill / MCP", "RAG 与评测", "策略实验", "数据分析", "原型与 Coding"],
+  education: [
+    { school: "四川大学（985）", degree: "应用统计 · 硕士", period: "2025.09 - 2027.06", detail: "GPA 3.85/4.0 · 校优秀学生 · 一等奖学金（前 5%）" },
+    { school: "四川大学（985）", degree: "财务管理 · 本科", period: "2021.09 - 2025.06", detail: "统计调研 94 · 统计分析 95 · Python 数据分析 94" },
+  ],
+  experiences: [
+    {
+      company: "美团 · 搜索产品部门", role: "AI 产品经理", period: "2026.05 - 至今",
+      summary: "从 0 到 1 搭建搜索数据团队 AI 数字员工，覆盖问数、取数等核心场景，并负责知识飞轮、工作流可视化与 Agent 评测迭代。",
+      metrics: ["覆盖 150+ 用户、680+ 次问答", "RAGAS 88.3%，正确率 89.4%", "异常定位从 1 小时缩短至 5 分钟"],
+    },
+    {
+      company: "得物 · 个卖中台", role: "产品运营", period: "2026.01 - 2026.04",
+      summary: "围绕瑕疵商品去化搭建“焕新分销”系统，通过漏斗分析、产品功能优化与多渠道售卖提升交易效率。",
+      metrics: ["日均选择量 1203 件，环比 +83%", "入口点击率 +48%", "分销售罄率 45.4%，环比 +36.3%"],
+    },
+    {
+      company: "小米集团 · 天星数科", role: "产品运营", period: "2025.05 - 2025.08",
+      summary: "负责 6 家金融牌照公司标准化管理，从 0 到 1 搭建经营看板与银行业政策自动监测系统。",
+      metrics: ["统一监控 6 家公司业务进度", "政策自动抓取、分类与风险提示", "政策监测效率提升 10 倍"],
+    },
+  ],
   projects: [
     {
       id: "career-ark",
@@ -143,6 +181,16 @@ export default function Home() {
     update({ ...data, projects });
   }
 
+  function setEducation(index: number, patch: Partial<Education>) {
+    const education = data.education.map((item, i) => i === index ? { ...item, ...patch } : item);
+    update({ ...data, education });
+  }
+
+  function setExperience(index: number, patch: Partial<Experience>) {
+    const experiences = data.experiences.map((item, i) => i === index ? { ...item, ...patch } : item);
+    update({ ...data, experiences });
+  }
+
   function addProject() {
     const index = data.projects.length;
     update({ ...data, projects: [...data.projects, {
@@ -205,7 +253,7 @@ export default function Home() {
         <div className="slideTitle"><b>个人简介</b><span>biography</span></div>
         <div className="aboutGrid">
           <div className="profileIllustration">
-            <div className="miniApple"><i /><span>AI</span></div>
+            <div className="portraitFrame"><img src="/profile.jpg" alt="景欣悦个人照片" /><i className="portraitApple" /></div>
             <div className="profileBubble">Hi! I&apos;m {data.name}<small>{data.role}</small></div>
           </div>
           <div className="aboutCard">
@@ -213,6 +261,9 @@ export default function Home() {
             <h2>不只提出想法，<br /><span>也把它做出来。</span></h2>
             <p>{data.about}</p>
             <div className="capabilities">{data.capabilities.map(item => <span key={item}>{item}</span>)}</div>
+            <div className="educationList">{data.education.map(item => <div key={`${item.school}-${item.degree}`}>
+              <span>{item.period}</span><b>{item.school}</b><strong>{item.degree}</strong><small>{item.detail}</small>
+            </div>)}</div>
           </div>
         </div>
         <a className="returnLink" href="#top">〈 return</a>
@@ -222,15 +273,25 @@ export default function Home() {
         <div className="skillsColumn">
           <div className="slideTitle left"><b>专业技能</b><span>expertise</span></div>
           <div className="skillBars">
-            {["产品设计", "AI 应用", "数据分析", "原型设计", "Coding"].map((skill, index) => <div className="skillRow" key={skill}>
+            {["产品策略", "AI Agent", "RAG 评测", "数据分析", "Python / SQL"].map((skill, index) => <div className="skillRow" key={skill}>
               <i>{["PM", "AI", "DA", "UX", "⌘"][index]}</i><b>{skill}</b><span>{Array.from({ length: 5 }).map((_, dot) => <em className={dot < 5 - (index % 2) ? "on" : ""} key={dot}>●</em>)}</span>
             </div>)}
           </div>
         </div>
         <div className="skillsColumn abilityColumn">
           <div className="slideTitle left"><b>个人能力</b><span>ability</span></div>
-          <ul>{[...data.capabilities,"需求分析","信息可视化","跨团队协作"].map(item => <li key={item}><i />{item}</li>)}</ul>
+          <ul>{[...data.capabilities,"Vue 3 / Supabase","Stata","CET-6","跨团队协作"].map(item => <li key={item}><i />{item}</li>)}</ul>
         </div>
+        <a className="returnLink" href="#top">〈 return</a>
+      </section>
+
+      <section className="experience" id="experience">
+        <div className="slideTitle"><b>实习经历</b><span>experience</span></div>
+        <div className="experienceList">{data.experiences.map((item, index) => <article key={item.company}>
+          <div className="experienceNo">0{index + 1}</div>
+          <div className="experienceMain"><span>{item.period}</span><h2>{item.company}</h2><h3>{item.role}</h3><p>{item.summary}</p></div>
+          <ul>{item.metrics.map(metric => <li key={metric}>{metric}</li>)}</ul>
+        </article>)}</div>
         <a className="returnLink" href="#top">〈 return</a>
       </section>
 
@@ -279,6 +340,21 @@ export default function Home() {
           <label>联系邮箱<input value={data.email} onChange={e => setField("email", e.target.value)} /></label>
           <label>能力标签（用逗号分隔）<input value={data.capabilities.join("，")} onChange={e => setField("capabilities", e.target.value.split(/[，,]/).map(v => v.trim()).filter(Boolean))} /></label>
         </div>
+        {data.education.map((item, index) => <div className="editorSection" key={`${item.school}-${index}`}>
+          <h4>教育经历 {index + 1}</h4>
+          <label>学校<input value={item.school} onChange={e => setEducation(index, { school: e.target.value })} /></label>
+          <label>专业与学历<input value={item.degree} onChange={e => setEducation(index, { degree: e.target.value })} /></label>
+          <label>时间<input value={item.period} onChange={e => setEducation(index, { period: e.target.value })} /></label>
+          <label>补充信息<textarea rows={3} value={item.detail} onChange={e => setEducation(index, { detail: e.target.value })} /></label>
+        </div>)}
+        {data.experiences.map((item, index) => <div className="editorSection" key={`${item.company}-${index}`}>
+          <h4>实习经历 {index + 1}</h4>
+          <label>公司与部门<input value={item.company} onChange={e => setExperience(index, { company: e.target.value })} /></label>
+          <label>岗位<input value={item.role} onChange={e => setExperience(index, { role: e.target.value })} /></label>
+          <label>时间<input value={item.period} onChange={e => setExperience(index, { period: e.target.value })} /></label>
+          <label>经历简介<textarea rows={4} value={item.summary} onChange={e => setExperience(index, { summary: e.target.value })} /></label>
+          <label>关键成果（每行一项）<textarea rows={4} value={item.metrics.join("\n")} onChange={e => setExperience(index, { metrics: e.target.value.split("\n").filter(Boolean) })} /></label>
+        </div>)}
         {data.projects.map((project, index) => <div className="editorSection projectEditor" key={project.id}>
           <div className="editorTitle"><h4>项目 {project.number}</h4><button onClick={() => update({ ...data, projects: data.projects.filter((_, i) => i !== index) })}>删除</button></div>
           <label>项目名称<input value={project.title} onChange={e => setProject(index, { title: e.target.value })} /></label>
