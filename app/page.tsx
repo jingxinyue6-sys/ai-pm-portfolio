@@ -43,6 +43,13 @@ type Portfolio = {
 
 const STORAGE_KEY = "ai-pm-portfolio-v2";
 
+const lifeMoments = [
+  { id: "climbing", label: "攀岩", en: "CLIMBING", src: "", featured: true },
+  { id: "skiing", label: "滑雪", en: "SKIING", src: "", featured: false },
+  { id: "skating", label: "滑冰", en: "SKATING", src: "", featured: false },
+  { id: "dance", label: "舞蹈", en: "DANCE", src: "", featured: false },
+];
+
 const defaultData: Portfolio = {
   name: "景欣悦",
   role: "AI 产品经理",
@@ -226,7 +233,10 @@ export default function Home() {
   return (
     <main>
       <nav className="nav">
-        <a className="brand" href="#top" aria-label="返回首页"><i className="brandApple" />{data.name}<span>APPLE</span></a>
+        <a className="brand" href="#top" aria-label="返回首页">
+          <i className="brandMark" aria-hidden="true"><b>J</b><span>X</span></i>
+          <span className="brandCopy"><b>{data.name}</b><small>AI PRODUCT</small></span>
+        </a>
         <div className="navLinks">
           <a href="#top"><b>首页</b><small>home</small></a>
           <a href="#about"><b>个人简介</b><small>biography</small></a>
@@ -253,7 +263,7 @@ export default function Home() {
         <div className="slideTitle"><b>个人简介</b><span>biography</span></div>
         <div className="aboutGrid">
           <div className="profileIllustration">
-            <div className="portraitFrame"><img src="/profile.jpg" alt="景欣悦个人照片" /><i className="portraitApple" /></div>
+            <div className="portraitFrame"><img src="./profile.jpg" alt="景欣悦个人照片" /><i className="portraitApple" /></div>
             <div className="profileBubble">Hi! I&apos;m {data.name}<small>{data.role}</small></div>
           </div>
           <div className="aboutCard">
@@ -266,6 +276,21 @@ export default function Home() {
             </div>)}</div>
           </div>
         </div>
+        <a className="returnLink" href="#top">〈 return</a>
+      </section>
+
+      <section className="life" id="life">
+        <div className="lifeHeading">
+          <div className="slideTitle left"><b>生活之外</b><span>life moments</span></div>
+          <p>在产品、数据与代码之外，保持向上、向前，也保持身体与世界的连接。</p>
+        </div>
+        <div className="lifeGrid">
+          {lifeMoments.map((moment, index) => <figure className={moment.featured ? "lifeCard featured" : "lifeCard"} key={moment.id}>
+            {moment.src ? <img src={moment.src} alt={`${moment.label}生活照`} /> : <div className="photoSlot"><span>PHOTO / 0{index + 1}</span><b>等待嵌入照片</b></div>}
+            <figcaption><b>{moment.label}</b><span>{moment.en}</span></figcaption>
+          </figure>)}
+        </div>
+        <div className="lifeApple" aria-hidden="true"><i /><span>GO!</span></div>
         <a className="returnLink" href="#top">〈 return</a>
       </section>
 
