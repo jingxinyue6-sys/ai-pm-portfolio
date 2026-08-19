@@ -12,6 +12,9 @@ type Project = {
   outcome: string;
   highlights: string[];
   tone: "lime" | "orange" | "cream";
+  image?: string;
+  url?: string;
+  linkLabel?: string;
 };
 
 type Education = {
@@ -93,71 +96,66 @@ const defaultData: Portfolio = {
         "把复杂模型翻译为直观分数，降低岗位筛选与决策成本",
       ],
       tone: "lime",
+      image: "./project-jobrec.png",
+      url: "https://jingxinyue6-sys.github.io/jobrec-ark-portfolio/?v=e19550b",
+      linkLabel: "查看实时项目",
     },
     {
-      id: "study-cat",
+      id: "agent-dashboard",
       number: "02",
-      title: "学喵打卡",
-      category: "学习习惯养成小程序",
-      summary: "用轻量打卡、即时反馈与成长陪伴，把“想坚持”转化为每天都能完成的小行动。",
-      tags: ["小程序", "习惯养成", "体验设计"],
-      outcome: "独立 Coding 作品",
+      title: "Agent 工作看板",
+      category: "DataAgent 能力建设与运行管理看板",
+      summary: "把 Agent 能力、知识库、Session 分析和运行状态整合到一张可持续迭代的工作看板中，让建设进度与质量风险一眼可见。",
+      tags: ["AI Agent", "能力评测", "数据看板"],
+      outcome: "独立产品设计与前端实现",
       highlights: [
-        "围绕创建目标、每日打卡、连续记录设计核心任务闭环",
-        "用拟人化的“学喵”反馈强化陪伴感与完成成就",
-        "从产品构想到可运行版本，完整实践设计与开发流程",
+        "以七维能力雷达与 Skill 分类呈现 Agent 当前能力和建设进度",
+        "联通知识库、Session 筛选、运行巡检与质量文件状态",
+        "将 NoCode 原型重构为响应式源码，支持后续 API 数据接入",
       ],
       tone: "orange",
+      image: "./project-agent.png",
+      url: "https://github.com/jingxinyue6-sys/agent-capability-dashboard",
+      linkLabel: "查看 GitHub 项目",
     },
     {
       id: "climb-together",
       number: "03",
       title: "一起攀",
-      category: "轻量互动小游戏",
-      summary: "围绕共同攀登目标设计的轻量小游戏，用协作、进度反馈和即时挑战创造持续参与感。",
-      tags: ["小游戏", "互动机制", "Coding"],
+      category: "线下攀岩活动随机组队与比赛计分工具",
+      summary: "面向攀岩馆线下活动，把录入名单、随机分组、抱石计分和速度对决整合成一套轻量流程，让组织者能快速开局。",
+      tags: ["小游戏", "活动工具", "React Coding"],
       outcome: "独立 Coding 作品",
       highlights: [
-        "将核心玩法收敛为清晰、可快速上手的单局体验",
-        "用阶段进度与即时反馈维持目标感和游戏节奏",
-        "验证从玩法设想到交互实现的快速产品化能力",
+        "支持名单录入、随机分队与队名自定义，降低现场组织成本",
+        "设计抱石限时计分与速度对决两种玩法，适配不同活动节奏",
+        "用本地存储保留活动设置，在移动端完成计时与计分操作",
       ],
       tone: "cream",
+      image: "./project-climb.png",
+      url: "https://github.com/jingxinyue6-sys/climb-together",
+      linkLabel: "查看 GitHub 项目",
+    },
+    {
+      id: "study-cat",
+      number: "04",
+      title: "学了吗",
+      category: "AI 学习陪伴与时间管理小程序",
+      summary: "用 AI 喵助手、学习打卡和日程管理陪伴用户建立稳定节奏，把目标拆成每天都能完成、能够获得反馈的小行动。",
+      tags: ["AI 陪伴", "习惯养成", "小程序原型"],
+      outcome: "独立 Coding 作品",
+      highlights: [
+        "围绕每日任务、连续打卡、专注计时与成长统计构建学习闭环",
+        "用 AI 喵助手和拟人化反馈降低计划管理的心理负担",
+        "整合日历、四象限任务与成就体系，兼顾效率和长期激励",
+      ],
+      tone: "orange",
+      image: "./project-xuemiao.png",
+      url: "https://github.com/jingxinyue6-sys/xuemiao-",
+      linkLabel: "查看 GitHub 项目",
     },
   ],
 };
-
-function MetricMockup() {
-  return (
-    <div className="metricMockup" aria-label="智聘方舟多岗位匹配结果示意">
-      <p>智能求职决策</p><strong>多岗位个性化匹配</strong>
-      <div className="score"><span>匹配度</span><b>92</b><i>%</i></div>
-      <div className="bar"><span /></div>
-      <div className="probability"><span>预计成功率</span><b>68%</b></div>
-      <small>已结合岗位竞争度修正</small>
-    </div>
-  );
-}
-
-function StudyMockup() {
-  return (
-    <div className="phoneMockup" aria-label="学喵打卡界面示意">
-      <div className="phoneTop"><span>09:41</span><i>● ●</i></div>
-      <p>今天也要向前一点</p><div className="catFace">^ ᵕ ^</div>
-      <strong>连续学习 12 天</strong><div className="streak">🔥 12</div>
-      <button tabIndex={-1}>完成今日打卡</button>
-    </div>
-  );
-}
-
-function GameMockup() {
-  return (
-    <div className="gameMockup" aria-label="一起攀游戏界面示意">
-      <div className="summit">▲</div><div className="route"><span>1</span><span>2</span><span>3</span><span>4</span></div>
-      <strong>一起到达山顶</strong><p>本局进度 · 72%</p>
-    </div>
-  );
-}
 
 export default function Home() {
   const [data, setData] = useState<Portfolio>(defaultData);
@@ -168,7 +166,16 @@ export default function Home() {
   useEffect(() => {
     const stored = window.localStorage.getItem(STORAGE_KEY);
     if (stored) {
-      try { setData(JSON.parse(stored)); } catch { window.localStorage.removeItem(STORAGE_KEY); }
+      try {
+        const parsed = JSON.parse(stored) as Portfolio;
+        const savedProjects = parsed.projects || [];
+        const mergedProjects = defaultData.projects.map(project => ({
+          ...(savedProjects.find(item => item.id === project.id) || {}),
+          ...project,
+        }));
+        const customProjects = savedProjects.filter(item => !defaultData.projects.some(project => project.id === item.id));
+        setData({ ...defaultData, ...parsed, projects: [...mergedProjects, ...customProjects] });
+      } catch { window.localStorage.removeItem(STORAGE_KEY); }
     }
   }, []);
 
@@ -254,7 +261,7 @@ export default function Home() {
         <div className="heroStage">
           <div className="heroCopy"><p>在 AI 面前<br />人人都是产品创造者</p><small>In front of AI, everyone is a product creator</small></div>
           <div className="speech">Hi! I&apos;m {data.name}<i /></div>
-          <div className="appleBuddy"><i className="leaf" /><i className="shine" /><span>AI</span><b>⌣</b></div>
+          <div className="appleBuddy"><i className="leaf" /><i className="shine" /><strong>{data.projects.length}</strong><small>核心作品</small><span>AI</span><b>⌣</b></div>
         </div>
         <div className="heroBottom"><p>{data.intro}</p><a className="continue" href="#about">CONTINUE 〉</a></div>
       </section>
@@ -309,17 +316,17 @@ export default function Home() {
         <div className="slideTitle"><b>作品集</b><span>portfolio</span></div>
         <div className="sectionHead"><p>SELECTED WORK / {String(data.projects.length).padStart(2, "0")}</p><p>PRODUCT THINKING × AI × CODING</p></div>
         <div className="projectList">
-          {data.projects.map((project, index) => (
+          {data.projects.map(project => (
             <article className={`projectCard ${project.tone}`} key={project.id}>
               <div className="visualPanel">
-                {index === 0 ? <MetricMockup /> : index === 1 ? <StudyMockup /> : <GameMockup />}
+                {project.image ? <img className="projectImage" src={project.image} alt={`${project.title}首页界面`} /> : <div className="projectPlaceholder">{project.title}</div>}
               </div>
               <div className="projectCopy">
                 <div className="projectMeta"><span>{project.number}</span><span>{project.category}</span></div>
                 <h2>{project.title}</h2><p className="lead">{project.summary}</p>
                 <div className="tags">{project.tags.map(tag => <span key={tag}>{tag}</span>)}</div>
                 <details><summary>查看项目亮点</summary><ul>{project.highlights.map(item => <li key={item}>{item}</li>)}</ul></details>
-                {project.id === "career-ark" && <a className="liveProject" href="https://jingxinyue6-sys.github.io/jobrec-ark-portfolio/?v=e19550b" target="_blank" rel="noreferrer">查看实时项目 <span>↗</span></a>}
+                {project.url && <a className="liveProject" href={project.url} target="_blank" rel="noreferrer">{project.linkLabel || "查看项目"} <span>↗</span></a>}
                 <div className="outcome"><span>项目成果</span><b>{project.outcome}</b></div>
               </div>
             </article>
@@ -387,6 +394,8 @@ export default function Home() {
           <label>项目类型<input value={project.category} onChange={e => setProject(index, { category: e.target.value })} /></label>
           <label>一句话简介<textarea rows={3} value={project.summary} onChange={e => setProject(index, { summary: e.target.value })} /></label>
           <label>项目成果<input value={project.outcome} onChange={e => setProject(index, { outcome: e.target.value })} /></label>
+          <label>项目链接<input value={project.url || ""} onChange={e => setProject(index, { url: e.target.value })} /></label>
+          <label>按钮文字<input value={project.linkLabel || ""} onChange={e => setProject(index, { linkLabel: e.target.value })} /></label>
           <label>标签（用逗号分隔）<input value={project.tags.join("，")} onChange={e => setProject(index, { tags: e.target.value.split(/[，,]/).map(v => v.trim()).filter(Boolean) })} /></label>
           <label>核心工作（每行一项）<textarea rows={5} value={project.highlights.join("\n")} onChange={e => setProject(index, { highlights: e.target.value.split("\n").filter(Boolean) })} /></label>
         </div>)}
