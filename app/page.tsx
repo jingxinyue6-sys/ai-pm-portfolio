@@ -129,8 +129,8 @@ const defaultData: Portfolio = {
 
 function MetricMockup() {
   return (
-    <div className="metricMockup" aria-label="智聘方舟岗位匹配结果示意">
-      <p>岗位决策快照</p><strong>AI 产品经理</strong>
+    <div className="metricMockup" aria-label="智聘方舟多岗位匹配结果示意">
+      <p>智能求职决策</p><strong>多岗位个性化匹配</strong>
       <div className="score"><span>匹配度</span><b>92</b><i>%</i></div>
       <div className="bar"><span /></div>
       <div className="probability"><span>预计成功率</span><b>68%</b></div>
@@ -319,6 +319,7 @@ export default function Home() {
                 <h2>{project.title}</h2><p className="lead">{project.summary}</p>
                 <div className="tags">{project.tags.map(tag => <span key={tag}>{tag}</span>)}</div>
                 <details><summary>查看项目亮点</summary><ul>{project.highlights.map(item => <li key={item}>{item}</li>)}</ul></details>
+                {project.id === "career-ark" && <a className="liveProject" href="https://jingxinyue6-sys.github.io/jobrec-ark-portfolio/?v=e19550b" target="_blank" rel="noreferrer">查看实时项目 <span>↗</span></a>}
                 <div className="outcome"><span>项目成果</span><b>{project.outcome}</b></div>
               </div>
             </article>
