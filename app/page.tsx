@@ -30,6 +30,7 @@ type Experience = {
   period: string;
   summary: string;
   metrics: string[];
+  image?: string;
 };
 
 type Portfolio = {
@@ -78,16 +79,19 @@ const defaultData: Portfolio = {
       company: "美团 · 搜索产品部门", role: "AI 产品经理", period: "2026.05 - 至今",
       summary: "从 0 到 1 搭建搜索数据团队 AI 数字员工，覆盖问数、取数场景；负责知识飞轮、工作流可视化与 Agent 评测迭代。",
       metrics: ["覆盖 150+ 用户、680+ 次问答", "RAGAS 88.3%，正确率 89.4%", "异常定位从 1 小时缩短至 5 分钟"],
+      image: "./intern-meituan.png",
     },
     {
       company: "得物 · 个卖中台", role: "产品运营", period: "2026.01 - 2026.04",
       summary: "围绕瑕疵商品去化搭建“焕新分销”系统，以漏斗分析和产品优化提升选择、投放与售罄效率。",
       metrics: ["日均选择量 1203 件，环比 +83%", "入口点击率 +48%", "分销售罄率 45.4%，环比 +36.3%"],
+      image: "./intern-dewu.jpg",
     },
     {
       company: "小米集团 · 天星数科", role: "产品运营", period: "2025.05 - 2025.08",
       summary: "负责 6 家金融牌照公司标准化管理，搭建经营看板及银行业政策自动监测系统。",
       metrics: ["统一监控 6 家公司业务进度", "政策自动抓取、分类与风险提示", "政策监测效率提升 10 倍"],
+      image: "./intern-xiaomi.png",
     },
   ],
   projects: [
@@ -330,6 +334,7 @@ export default function Home() {
         <div className="slideTitle"><b>实习经历</b><span>experience</span></div>
         <div className="experienceList">{data.experiences.map((item, index) => <article key={item.company}>
           <div className="experienceNo">0{index + 1}</div>
+          {item.image && <div className="experiencePhoto"><img src={item.image} alt={`${item.company}实习照片`} /></div>}
           <div className="experienceMain"><span>{item.period}</span><h2>{item.company}</h2><h3>{item.role}</h3><p>{item.summary}</p></div>
           <ul>{item.metrics.map(metric => <li key={metric}>{metric}</li>)}</ul>
         </article>)}</div>
