@@ -149,7 +149,7 @@ const defaultData: Portfolio = {
       ],
       tone: "cream",
       image: "./project-climb.png",
-      url: "https://yi-qi-pan-climb-games.hackerinchina.chatgpt.site",
+      url: "https://jingxinyue6-sys.github.io/climb-together/",
       sourceUrl: "https://github.com/jingxinyue6-sys/climb-together",
       linkLabel: "在线体验游戏",
     },
