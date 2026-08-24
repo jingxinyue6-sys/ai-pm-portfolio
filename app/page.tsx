@@ -14,6 +14,7 @@ type Project = {
   tone: "lime" | "orange" | "cream";
   image?: string;
   url?: string;
+  sourceUrl?: string;
   linkLabel?: string;
 };
 
@@ -111,7 +112,8 @@ const defaultData: Portfolio = {
       tone: "lime",
       image: "./project-jobrec.png",
       url: "https://jingxinyue6-sys.github.io/jobrec-ark-portfolio/?v=e19550b",
-      linkLabel: "查看实时项目",
+      sourceUrl: "https://github.com/jingxinyue6-sys/jobrec-ark-portfolio",
+      linkLabel: "在线体验项目",
     },
     {
       id: "agent-dashboard",
@@ -128,8 +130,9 @@ const defaultData: Portfolio = {
       ],
       tone: "orange",
       image: "./project-agent.png",
-      url: "https://github.com/jingxinyue6-sys/agent-capability-dashboard",
-      linkLabel: "查看 GitHub 项目",
+      url: "https://jingxinyue6-sys.github.io/agent-capability-dashboard/",
+      sourceUrl: "https://github.com/jingxinyue6-sys/agent-capability-dashboard",
+      linkLabel: "在线体验看板",
     },
     {
       id: "climb-together",
@@ -146,8 +149,9 @@ const defaultData: Portfolio = {
       ],
       tone: "cream",
       image: "./project-climb.png",
-      url: "https://github.com/jingxinyue6-sys/climb-together",
-      linkLabel: "查看 GitHub 项目",
+      url: "https://yi-qi-pan-climb-games.hackerinchina.chatgpt.site",
+      sourceUrl: "https://github.com/jingxinyue6-sys/climb-together",
+      linkLabel: "在线体验游戏",
     },
     {
       id: "study-cat",
@@ -164,8 +168,9 @@ const defaultData: Portfolio = {
       ],
       tone: "orange",
       image: "./project-xuemiao.png",
-      url: "https://github.com/jingxinyue6-sys/xuemiao-",
-      linkLabel: "查看 GitHub 项目",
+      url: "https://jingxinyue6-sys.github.io/xuemiao-/",
+      sourceUrl: "https://github.com/jingxinyue6-sys/xuemiao-",
+      linkLabel: "在线体验小程序",
     },
   ],
 };
@@ -355,7 +360,10 @@ export default function Home() {
                 <h2>{project.title}</h2><p className="lead">{project.summary}</p>
                 <div className="tags">{project.tags.map(tag => <span key={tag}>{tag}</span>)}</div>
                 <details><summary>查看项目亮点</summary><ul>{project.highlights.map(item => <li key={item}>{item}</li>)}</ul></details>
-                {project.url && <a className="liveProject" href={project.url} target="_blank" rel="noreferrer">{project.linkLabel || "查看项目"} <span>↗</span></a>}
+                {(project.url || project.sourceUrl) && <div className="projectActions">
+                  {project.url && <a className="liveProject" href={project.url} target="_blank" rel="noreferrer">{project.linkLabel || "在线体验项目"} <span>↗</span></a>}
+                  {project.sourceUrl && <a className="sourceProject" href={project.sourceUrl} target="_blank" rel="noreferrer">查看源码 <span>↗</span></a>}
+                </div>}
                 <div className="outcome"><span>项目成果</span><b>{project.outcome}</b></div>
               </div>
             </article>
