@@ -53,6 +53,15 @@ const sportsMoments = [
   { id: "hiking", label: "徒步", en: "HIKING", src: "./sport-hiking.jpg", featured: false },
 ];
 
+const skillProofs = [
+  { code: "01", title: "AI 产品设计", summary: "能从真实业务问题出发，完成需求洞察、方案设计、指标定义与迭代闭环。", proof: "在美团从 0 到 1 搭建搜索数据团队 AI 数字员工，覆盖问数、取数与异常定位场景。", result: "覆盖 150+ 用户、680+ 次问答", accent: "purple" },
+  { code: "02", title: "Agent / Skill / MCP", summary: "理解 Agent 的能力拆解、工作流编排、工具调用与运行状态管理。", proof: "设计 Agent 工作看板，将七维能力、Skill 分类、知识库、Session 分析与巡检整合到统一界面。", result: "独立完成产品设计与前端实现", accent: "aqua" },
+  { code: "03", title: "RAG 与评测", summary: "能够围绕知识质量、召回效果与回答准确性搭建可量化的评测体系。", proof: "负责知识飞轮、工作流可视化和 Agent 评测迭代，并持续定位影响答案质量的关键环节。", result: "RAGAS 88.3% · 正确率 89.4%", accent: "yellow" },
+  { code: "04", title: "数据分析与策略实验", summary: "用漏斗、指标拆解与实验结果验证产品假设，把数据转化为策略动作。", proof: "在得物围绕瑕疵商品去化优化选择、入口与分销链路，推动关键环节持续增长。", result: "选择量 +83% · 点击率 +48% · 售罄率 +36.3%", accent: "orange" },
+  { code: "05", title: "数据产品与经营看板", summary: "擅长把分散数据整理成可追踪、可预警、可支持决策的产品界面。", proof: "在小米搭建 6 家金融牌照公司经营看板，并建设银行业政策自动监测与风险提示系统。", result: "政策监测效率提升 10 倍", accent: "blue" },
+  { code: "06", title: "原型与 Coding", summary: "不仅输出 PRD，也能用代码快速完成高保真原型和产品验证。", proof: "独立完成智聘方舟、Agent 工作看板、一起攀和学了吗等 4 个可展示项目。", result: "4 个完整 Coding 作品", accent: "lilac" },
+];
+
 const defaultData: Portfolio = {
   name: "景欣悦",
   role: "AI 产品经理",
@@ -161,7 +170,9 @@ export default function Home() {
   const [data, setData] = useState<Portfolio>(defaultData);
   const [editorOpen, setEditorOpen] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [activeSkill, setActiveSkill] = useState(0);
   const fileInput = useRef<HTMLInputElement>(null);
+  const skillTrack = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const stored = window.localStorage.getItem(STORAGE_KEY);
@@ -237,15 +248,34 @@ export default function Home() {
     if (window.confirm("确定恢复初始内容吗？当前修改将被覆盖。")) update(defaultData);
   }
 
+  function showSkill(index: number) {
+    const next = (index + skillProofs.length) % skillProofs.length;
+    setActiveSkill(next);
+    const track = skillTrack.current;
+    const card = skillTrack.current?.children[next] as HTMLElement | undefined;
+    if (track && card) track.scrollTo({ left: card.offsetLeft - (track.clientWidth - card.clientWidth) / 2, behavior: "smooth" });
+  }
+
+  function syncSkillFromScroll() {
+    const track = skillTrack.current;
+    if (!track) return;
+    const center = track.scrollLeft + track.clientWidth / 2;
+    const cards = Array.from(track.children) as HTMLElement[];
+    const next = cards.reduce((closest, card, index) => {
+      const distance = Math.abs(card.offsetLeft + card.clientWidth / 2 - center);
+      return distance < closest.distance ? { index, distance } : closest;
+    }, { index: 0, distance: Number.POSITIVE_INFINITY }).index;
+    setActiveSkill(next);
+  }
+
   return (
-    <main>
+    <main id="top">
       <nav className="nav">
-        <a className="brand" href="#top" aria-label="返回首页">
-          <i className="brandMark" aria-hidden="true"><b>J</b><span>X</span></i>
+        <a className="brand" href="#about" aria-label="返回个人简介">
+          <i className="brandMark" aria-hidden="true"><img src="./avatar-nav.png" alt="" /></i>
           <span className="brandCopy"><b>{data.name}</b><small>AI PRODUCT</small></span>
         </a>
         <div className="navLinks">
-          <a href="#top"><b>首页</b><small>home</small></a>
           <a href="#about"><b>个人简介</b><small>biography</small></a>
           <a href="#skills"><b>技能</b><small>skill</small></a>
           <a href="#work"><b>作品集</b><small>portfolio</small></a>
@@ -253,18 +283,6 @@ export default function Home() {
           <button className="edit" onClick={() => setEditorOpen(true)}>编辑</button>
         </div>
       </nav>
-
-      <section className="hero" id="top">
-        <div className="doodleLine lineOne" /><div className="doodleLine lineTwo" />
-        <p className="eyebrow">{data.role} · 2026 PORTFOLIO</p>
-        <div className="welcome">WELC<span className="heroApple" />ME</div>
-        <div className="heroStage">
-          <div className="heroCopy"><p>在 AI 面前<br />人人都是产品创造者</p><small>In front of AI, everyone is a product creator</small></div>
-          <div className="speech">Hi! I&apos;m {data.name}<i /></div>
-          <div className="appleBuddy"><i className="leaf" /><i className="shine" /><strong>{data.projects.length}</strong><small>核心作品</small><span>AI</span><b>⌣</b></div>
-        </div>
-        <div className="heroBottom"><p>{data.intro}</p><a className="continue" href="#about">CONTINUE 〉</a></div>
-      </section>
 
       <section className="about" id="about">
         <div className="slideTitle"><b>个人简介</b><span>biography</span></div>
@@ -287,18 +305,24 @@ export default function Home() {
       </section>
 
       <section className="skills" id="skills">
-        <div className="skillsColumn">
-          <div className="slideTitle left"><b>专业技能</b><span>expertise</span></div>
-          <div className="skillBars">
-            {["产品策略", "AI Agent", "RAG 评测", "数据分析", "Python / SQL"].map((skill, index) => <div className="skillRow" key={skill}>
-              <i>{["PM", "AI", "DA", "UX", "⌘"][index]}</i><b>{skill}</b><span>{Array.from({ length: 5 }).map((_, dot) => <em className={dot < 5 - (index % 2) ? "on" : ""} key={dot}>●</em>)}</span>
-            </div>)}
+        <div className="skillsHeading">
+          <div className="slideTitle left"><b>专业能力</b><span>expertise with evidence</span></div>
+          <p>不以星级定义能力，用真实项目、业务动作和结果说明我能做什么。</p>
+        </div>
+        <div className="skillCarousel">
+          <button className="skillArrow prev" onClick={() => showSkill(activeSkill - 1)} aria-label="上一项专业能力">‹</button>
+          <div className="skillTrack" ref={skillTrack} onScroll={syncSkillFromScroll}>
+            {skillProofs.map((skill, index) => <article className={`skillProof ${skill.accent}${index === activeSkill ? " active" : ""}`} key={skill.title}>
+              <div className="skillProofTop"><span>{skill.code}</span><small>PROFESSIONAL PROOF</small></div>
+              <h2>{skill.title}</h2>
+              <p>{skill.summary}</p>
+              <div className="proofBox"><small>项目佐证</small><strong>{skill.proof}</strong></div>
+              <div className="proofResult"><span>结果</span><b>{skill.result}</b></div>
+            </article>)}
           </div>
+          <button className="skillArrow next" onClick={() => showSkill(activeSkill + 1)} aria-label="下一项专业能力">›</button>
         </div>
-        <div className="skillsColumn abilityColumn">
-          <div className="slideTitle left"><b>个人能力</b><span>ability</span></div>
-          <ul>{[...data.capabilities,"Vue 3 / Supabase","Stata","CET-6","跨团队协作"].map(item => <li key={item}><i />{item}</li>)}</ul>
-        </div>
+        <div className="skillDots" aria-label="专业能力分页">{skillProofs.map((skill, index) => <button className={index === activeSkill ? "active" : ""} onClick={() => showSkill(index)} aria-label={`查看${skill.title}`} key={skill.title} />)}</div>
         <a className="returnLink" href="#top">〈 return</a>
       </section>
 
